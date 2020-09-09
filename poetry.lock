@@ -115,7 +115,7 @@ python = "<3.8"
 version = "*"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "WSGI HTTP Server for UNIX"
 name = "gunicorn"
 optional = false
@@ -394,7 +394,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "7cee41279a326d74f504cd4dd3b2336970f6478fb1bcb172fda9661704e7d2d3"
+content-hash = "543c7dc1e4df66763bfb85972c02ea99c237c9e54cadfb9ee984d02c241aca8d"
 python-versions = "^3.6"
 
 [metadata.files]
