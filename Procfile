@@ -1,1 +1,1 @@
-web: gunicorn task_manager.wsgi --log-file -
+web: poetry run gunicorn task_manager.wsgi --log-file -
