@@ -10,6 +10,7 @@ django = "^3.1.1"
 rollbar = "^0.15.0"
 python-dotenv = "^0.14.0"
 gunicorn = "^20.0.4"
+django-bootstrap4 = "^2.2.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.3"
