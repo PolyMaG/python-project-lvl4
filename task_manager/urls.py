@@ -22,5 +22,5 @@ urlpatterns = [
     path('', views.my_view, name='my_view'),
     path('tasks/', include('tasks.urls')),
     path('admin/', admin.site.urls),
-    path('login/', views.login, name='login'),
+  #  path('login/', views.login, name='login'),
 ]
