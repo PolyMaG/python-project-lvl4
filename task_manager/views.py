@@ -4,9 +4,9 @@ import rollbar
 from django.shortcuts import redirect, reverse
 
 
-def my_view(request):
+def redirect_tasks(request):
     try:
-        return redirect(reverse('index'))
+        return redirect(reverse('tasks:tasks_list_url'))
     except: # noqa E722
         rollbar.report_exc_info(sys.exc_info())
 

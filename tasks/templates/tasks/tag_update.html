@@ -1,0 +1,24 @@
+{% extends 'tasks/base_tasks.html' %}
+
+{% block title %}
+Edit tag - {{ block.super }}
+{% endblock %}
+
+{% block heading %}
+<h4>Edit "{{ tag.title }}" tag</h4>
+{% endblock %}
+
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div class="form-proup col-md-3">
+    <h3>"{{ tag.title }}" tag</h3>
+</div>
+
+<form action=" {% url 'tasks:tag_update_url' tag.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group col-md-3">
+        Title: {{ form.title }}
+        <button type="submit" class="btn btn-primary mt-3">Update</button>
+    </div>
+</form>
+{% endblock %}

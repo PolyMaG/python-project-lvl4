@@ -1,0 +1,23 @@
+{% extends "tasks/base_tasks.html" %}
+
+{% block title %}
+Tasks list - {{ block.super }}
+{% endblock %}
+
+{% block heading %}
+<h2>Here's your tasks</h2>
+<h5><a href="{% url 'tasks:task_create_url' %}">Add one more task</a></h5>
+{% endblock %}
+{% block content %}
+{% if tasks_list %}
+<div class="container">
+    <div class="row">
+        {% for task in tasks_list %}
+        {% include 'tasks/includes/task_card_template.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<p>No tasks are available.</p>
+{% endif %}
+{% endblock %}

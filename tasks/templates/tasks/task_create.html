@@ -1,0 +1,40 @@
+{% extends 'tasks/base_tasks.html' %}
+
+{% block title %}
+Task create - {{ block.super }}
+{% endblock %}
+
+{% block heading %}
+<h4>
+  To add a new task fill in all fields<br />and press the "Create task" button
+</h4>
+{% endblock %}
+
+{% block content %}
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<div class="form-proup col-md-3">
+  <h3>New task</h3>
+</div>
+
+<form action=" {% url 'tasks:task_create_url' %}" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="form-group col-md-3">
+    {% if field.errors %}
+    <div class="alert alert-danger">
+      {{ field.errors }}
+    </div>
+    {% endif %}
+
+    {{ field.label }}
+    {{ field }}
+  </div>
+  {% endfor %}
+  <div class="form-group col-md-3">
+    <button type="submit" class="btn btn-primary mt-3">Create task</button>
+  </div>
+</form>
+{% endblock %}

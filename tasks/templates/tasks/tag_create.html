@@ -1,0 +1,24 @@
+{% extends 'tasks/base_tasks.html' %}
+
+{% block title %}
+Tag create - {{ block.super }}
+{% endblock %}
+
+{% block heading %}
+<h4>To add a new tag enter its title<br>and press the "Create tag" button</h4>
+{% endblock %}
+
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<div class="form-proup col-md-3">
+    <h3>New tag</h3>
+</div>
+
+<form action=" {% url 'tasks:tag_create_url' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group col-md-3">
+        Title: {{ form.title }}
+        <button type="submit" class="btn btn-primary mt-3">Create tag</button>
+    </div>
+</form>
+{% endblock %}

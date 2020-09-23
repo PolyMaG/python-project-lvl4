@@ -1,0 +1,21 @@
+{% extends 'tasks/base_tasks.html' %}
+
+{% block title %}
+Delete tag {{ tag.title }} - {{ block.super }}
+{% endblock %}
+
+{% block heading %}
+<h4>"{{ tag.title }}" tag</h4>
+{% endblock %}
+
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action=" {% url 'tasks:tag_delete_url' tag.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <h3>Are you sure you want to delete "{{ tag.title }}" tag?</h3>
+        <a href="{% url "tasks:tag_detail_url" tag.id %}">Cancel</a>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
+</form>
+{% endblock %}

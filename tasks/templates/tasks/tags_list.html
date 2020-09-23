@@ -1,0 +1,28 @@
+{% extends 'tasks/base_tasks.html' %}
+
+{% block title %}
+Tags list - {{ block.super }}
+{% endblock %}
+
+{% block heading %}
+<h1>Tags list</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1 class="col-sm-4 offset-md-0 mb-3">Tags:</h1>
+    </div>
+
+</div>
+
+{% for tag in tags %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 offset-md-1">
+            <h4><a href="{% url 'tasks:tag_detail_url' tag.id %}"> - {{ tag.title }}</h4>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
