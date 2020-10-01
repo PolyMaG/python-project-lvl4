@@ -14,7 +14,7 @@ Delete task {{ task.name }} - {{ block.super }}
     {% csrf_token %}
     <div class="form-group">
         <h3>Are you sure you want to delete "{{ task.name }}" task?</h3>
-        <a href="{% url "tasks:tasks_list_url" %}">Cancel</a>
+        <a href="{% url 'tasks:tasks_list_url' %}">Cancel</a>
         <button type="submit" class="btn btn-danger">Delete</button>
     </div>
 </form>

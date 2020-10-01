@@ -1,48 +1,60 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.shortcuts import reverse
+
+
+def get_default_status():
+    return TaskStatus.objects.get_or_create(name='new')[0]
 
 
 class TaskStatus(models.Model):
-    NEW = 'NEW'
-    WORK = 'WORK'
-    TEST = 'TEST'
-    DONE = 'DONE'
+    NEW = 'new'
+    WORK = 'work'
+    TEST = 'test'
+    DONE = 'done'
     STATUS_OPTIONS = [
         (NEW, 'New'),
         (WORK, 'In work'),
         (TEST, 'Testing'),
         (DONE, 'Done'),
     ]
-    status_name = models.CharField(
+    name = models.CharField(
         max_length=4,
         choices=STATUS_OPTIONS,
+        unique=True,
         default=NEW,
     )
 
     def __str__(self):
-        return self.status_name
+        return self.name
 
 
 class Task(models.Model):
-    NEW = 'NEW'
-    WORK = 'WORK'
-    TEST = 'TEST'
-    DONE = 'DONE'
-    STATUS_OPTIONS = [
-        (NEW, 'New'),
-        (WORK, 'In work'),
-        (TEST, 'Testing'),
-        (DONE, 'Done'),
-    ]
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    status = models.CharField(
-        max_length=4,
-        choices=STATUS_OPTIONS,
-        default=NEW,
+    status = models.ForeignKey(
+        TaskStatus,
+        default=get_default_status,
+        on_delete=models.CASCADE
     )
-    creator = models.CharField(max_length=200)
-    assigned_to = models.CharField(max_length=200)
+    creator = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='creator'
+    )
+    assigned_to = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='assigned_to'
+    )
     tags = models.ManyToManyField('Tag', blank=True, related_name='tasks')
+
+    def get_absolute_url(self):
+        return reverse('tasks:task_detail_url', kwargs={'pk': self.id})
 
     def __str__(self):
         return self.name
@@ -50,6 +62,9 @@ class Task(models.Model):
 
 class Tag(models.Model):
     title = models.CharField(max_length=50, unique=True)
+
+    def get_absolute_url(self):
+        return reverse('tasks:tag_detail_url', kwargs={'pk': self.id})
 
     def __str__(self):
         return self.title

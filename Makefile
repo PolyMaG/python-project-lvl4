@@ -1,6 +1,9 @@
 install:
 	poetry install
 
+init:
+	poetry run python manage.py loaddata task_status_data.json
+
 lint:
 	poetry run flake8 task_manager tasks
 	# poetry run flake8 tests
@@ -9,9 +12,5 @@ lint:
 
 test:
 	poetry run pytest -vv --cov=task_manager --cov-report xml tests/
-
-publish:
-	poetry build
-	poetry publish -r testpypi
 
 .PHONY: install lint test publish

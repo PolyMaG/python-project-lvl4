@@ -1,31 +1,34 @@
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import View
-import rollbar
-import sys
+from django.views import generic
 
-from .forms import TaskForm, TagForm
-from .models import Task, Tag
+from .forms import TaskForm
+from .models import Task, Tag, TaskStatus
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 
-def tasks_list(request):
-    tasks_list = Task.objects.all()
-    try:
-        return render(
-            request, 'tasks/tasks_list.html', {'tasks_list': tasks_list}
-        )
-    except:  # noqa E722
-        rollbar.report_exc_info(sys.exc_info())
+class TasksList(generic.ListView):
+    template_name = 'tasks/tasks_list.html'
+    context_object_name = 'tasks_list'
+
+    def get_queryset(self):
+        return Task.objects.all()
 
 
-class TaskDetail(View):
-    def get(self, request, task_id):
-        task = get_object_or_404(Task, pk=task_id)
-        try:
-            return render(request, 'tasks/task_detail.html', {'task': task})
-        except:  # noqa E722
-            rollbar.report_exc_info(sys.exc_info())
+class MyTasksList(LoginRequiredMixin, generic.ListView):
+    template_name = 'tasks/my_tasks_list.html'
+    context_object_name = 'tasks_list'
+
+    def get_queryset(self):
+        return Task.objects.filter(creator=self.request.user)
+
+
+class TaskDetail(generic.DetailView):
+    model = Task
+    template_name = 'tasks/task_detail.html'
 
 
 class TaskCreate(LoginRequiredMixin, View):
@@ -39,121 +42,87 @@ class TaskCreate(LoginRequiredMixin, View):
         bound_form = TaskForm(request.POST)
         if bound_form.is_valid():
             new_task = bound_form.save()
+            new_task.creator = request.user
+            new_task.save()
             return redirect('tasks:task_detail_url', new_task.id)
         return render(request, 'tasks/task_create.html', {'form': bound_form})
 
 
-class TaskUpdate(LoginRequiredMixin, View):
+class TaskUpdate(LoginRequiredMixin, generic.edit.UpdateView):
     raise_exception = True
-
-    def get(self, request, task_id):
-        task = Task.objects.get(pk=task_id)
-        bound_form = TaskForm(instance=task)
-        return render(
-            request, 'tasks/task_update.html', {
-                'form': bound_form, 'task': task}
-        )
-
-    def post(self, request, task_id):
-        task = Task.objects.get(pk=task_id)
-        bound_form = TaskForm(request.POST, instance=task)
-        if bound_form.is_valid():
-            new_task = bound_form.save()
-            return redirect('tasks:task_detail_url', new_task.id)
-        return render(
-            request,
-            'tasks/task_update.html',
-            {'form': bound_form, 'task': task}
-        )
+    model = Task
+    fields = [
+        'name',
+        'description',
+        'status',
+        'assigned_to',
+        'tags'
+    ]
+    template_name_suffix = '_update'
 
 
-class TaskDelete(LoginRequiredMixin, View):
+class TaskDelete(LoginRequiredMixin, generic.edit.DeleteView):
     raise_exception = True
-
-    def get(self, request, task_id):
-        task = Task.objects.get(pk=task_id)
-        return render(request, 'tasks/task_delete.html', {'task': task})
-
-    def post(self, request, task_id):
-        task = Task.objects.get(pk=task_id)
-        task.delete()
-        return redirect(reverse('tasks:tasks_list_url'))
+    model = Task
+    template_name_suffix = '_delete'
+    success_url = reverse_lazy('tasks:tasks_list_url')
 
 
-def tags_list(request):
-    tags = Tag.objects.all()
-    try:
-        return render(request, 'tasks/tags_list.html', context={'tags': tags})
-    except:  # noqa E722
-        rollbar.report_exc_info(sys.exc_info())
+class TagsList(generic.ListView):
+    template_name = 'tasks/tags_list.html'
+    context_object_name = 'tags'
+
+    def get_queryset(self):
+        return Tag.objects.all()
 
 
-class TagDetail(View):
-    def get(self, request, tag_id):
-        tag = get_object_or_404(Tag, pk=tag_id)
-        try:
-            return render(request, 'tasks/tag_detail.html', {'tag': tag})
-        except:  # noqa E722
-            rollbar.report_exc_info(sys.exc_info())
+class TagDetail(generic.DetailView):
+    model = Tag
+    template_name = 'tasks/tag_detail.html'
 
 
-class TagCreate(LoginRequiredMixin, View):
+class TagCreate(LoginRequiredMixin, generic.edit.CreateView):
     raise_exception = True
-
-    def get(self, request):
-        form = TagForm()
-        try:
-            return render(request, 'tasks/tag_create.html', {'form': form})
-        except:  # noqa E722
-            rollbar.report_exc_info(sys.exc_info())
-
-    def post(self, request):
-        bound_form = TagForm(request.POST)
-        if bound_form.is_valid():
-            new_tag = bound_form.save()
-            try:
-                return redirect('tasks:tag_detail_url', new_tag.id)
-            except:  # noqa E722
-                rollbar.report_exc_info(sys.exc_info())
-        try:
-            return render(
-                request, 'tasks/tag_create.html', {'form': bound_form}
-            )
-        except:  # noqa E722
-            rollbar.report_exc_info(sys.exc_info())
+    model = Tag
+    fields = ['title']
+    template_name_suffix = '_create'
 
 
-class TagUpdate(LoginRequiredMixin, View):
+class TagUpdate(LoginRequiredMixin, generic.edit.UpdateView):
     raise_exception = True
-
-    def get(self, request, tag_id):
-        tag = Tag.objects.get(pk=tag_id)
-        bound_form = TagForm(instance=tag)
-        return render(
-            request, 'tasks/tag_update.html', {'form': bound_form, 'tag': tag}
-        )
-
-    def post(self, request, tag_id):
-        tag = Tag.objects.get(pk=tag_id)
-        bound_form = TagForm(request.POST, instance=tag)
-        if bound_form.is_valid():
-            new_tag = bound_form.save()
-            return redirect('tasks:tag_detail_url', new_tag.id)
-        return render(
-            request,
-            'tasks/tag_update.html',
-            context={'form': bound_form, 'tag': tag}
-        )
+    model = Tag
+    fields = ['title']
+    template_name_suffix = '_update'
 
 
-class TagDelete(LoginRequiredMixin, View):
+class TagDelete(LoginRequiredMixin, generic.edit.DeleteView):
     raise_exception = True
+    model = Tag
+    template_name_suffix = '_delete'
+    success_url = reverse_lazy('tasks:tags_list_url')
 
-    def get(self, request, tag_id):
-        tag = Tag.objects.get(pk=tag_id)
-        return render(request, 'tasks/tag_delete.html', {'tag': tag})
 
-    def post(self, request, tag_id):
-        tag = Tag.objects.get(pk=tag_id)
-        tag.delete()
-        return redirect(reverse('tasks:tags_list_url'))
+class StatusList(generic.ListView):
+    template_name = 'tasks/status_list.html'
+    context_object_name = 'status_all'
+
+    def get_queryset(self):
+        return TaskStatus.objects.all()
+
+
+class StatusDetail(generic.DetailView):
+    model = TaskStatus
+    template_name = 'tasks/status_detail.html'
+
+
+class AssignedToList(generic.ListView):
+    template_name = 'tasks/assigned_to_list.html'
+    context_object_name = 'assignees'
+
+    def get_queryset(self):
+        return User.objects.all()
+
+
+class AssignedToDetail(generic.DetailView):
+    model = User
+    template_name = 'tasks/assigned_to_detail.html'

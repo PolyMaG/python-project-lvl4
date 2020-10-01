@@ -5,12 +5,11 @@ Tasks list - {{ block.super }}
 {% endblock %}
 
 {% block heading %}
-<h2>Here's all tasks</h2>
+<h2>Here's your tasks</h2>
 <h5><a href="{% url 'tasks:task_create_url' %}">Add one more</a></h5>
 {% endblock %}
 {% block content %}
 {% if tasks_list %}
-
 <div class="container">
 
     <div class="row">

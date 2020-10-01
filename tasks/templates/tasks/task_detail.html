@@ -19,7 +19,7 @@
                 Assigned to: {{ task.assigned_to }}<br>
                 Tags:
                 {% for tag in task.tags.all %}
-                <a href="{% url 'tasks:tag_detail_url' tag.id %}">{{ tag.title }}</a>
+                <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
                 {% endfor %}
             </p>
         </div>

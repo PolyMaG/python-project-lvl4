@@ -1,0 +1,30 @@
+[
+  {
+    "model": "tasks.TaskStatus",
+    "pk": 1,
+    "fields": {
+      "name": "new"
+    }
+  },
+  {
+    "model": "tasks.TaskStatus",
+    "pk": 2,
+    "fields": {
+      "name": "work"
+    }
+  },
+  {
+    "model": "tasks.TaskStatus",
+    "pk": 3,
+    "fields": {
+      "name": "test"
+    }
+  },
+  {
+    "model": "tasks.TaskStatus",
+    "pk": 4,
+    "fields": {
+      "name": "done"
+    }
+  }
+]

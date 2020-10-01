@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.redirect_tasks, name='redirect_tasks'),
     path('tasks/', include('tasks.urls')),
     path('admin/', admin.site.urls),
-    # path('login/', views.login, name='login'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', views.SignUpView.as_view(), name='sign_up_url'),
 ]

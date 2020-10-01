@@ -10,17 +10,17 @@ class TaskForm(forms.ModelForm):
             'name',
             'description',
             'status',
-            'creator',
             'assigned_to',
             'tags'
         ]
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': '3'}
+            ),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'creator': forms.TextInput(attrs={'class': 'form-control'}),
-            'assigned_to': forms.TextInput(attrs={'class': 'form-control'}),
+            'assigned_to': forms.Select(attrs={'class': 'form-control'}),
             'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
 

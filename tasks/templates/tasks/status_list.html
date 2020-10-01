@@ -1,26 +1,26 @@
 {% extends 'tasks/base_tasks.html' %}
 
 {% block title %}
-Tags list - {{ block.super }}
+Status list - {{ block.super }}
 {% endblock %}
 
 {% block heading %}
-<h1>Tags list</h1>
+<h1>Status list</h1>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <h1 class="col-sm-4 offset-md-0 mb-3">Tags:</h1>
+        <h1 class="col-sm-4 offset-md-0 mb-3">Status:</h1>
     </div>
 
 </div>
 
-{% for tag in tags %}
+{% for status in status_all %}
 <div class="container">
     <div class="row">
         <div class="col-sm-4 offset-md-1">
-            <h4><a href="{{ tag.get_absolute_url }}"> - {{ tag.title }}</h4>
+            <h4><a href="{% url 'tasks:status_detail_url' status.id %}"> - {{ status.name }}</h4>
         </div>
     </div>
 </div>
