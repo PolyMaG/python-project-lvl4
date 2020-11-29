@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=e52a560efec8c6ecece32169f45fb69931ab318532b42e475d068797746e4a6a
+
 language: python
 python: 3.6
 
@@ -8,3 +12,12 @@ before_install:
 
 script:
   - make lint
+  - make test
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

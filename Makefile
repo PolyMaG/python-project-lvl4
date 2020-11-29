@@ -18,7 +18,10 @@ sort:
 	poetry run isort tasks/tests/*.py
 
 test:
-	poetry run python manage.py test
-	# poetry run pytest -vv --cov=task_manager --cov-report xml tests/
+	coverage run --omit=*/venv/*,*/migrations/*,*/templates/* manage.py test
+	#poetry run pytest -vv --cov=task_manager --cov-report xml tests/
 
-.PHONY: install loaddb lint sort test install_requirements install_dev_equirements
+cov:
+	coverage report -m
+
+.PHONY: install loaddb lint sort test install_requirements install_dev_equirements cov
