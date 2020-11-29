@@ -18,10 +18,9 @@ sort:
 	poetry run isort tasks/tests/*.py
 
 test:
+	coverage erase
 	coverage run --omit=*/venv/*,*/migrations/*,*/templates/* manage.py test
-	#poetry run pytest -vv --cov=task_manager --cov-report xml tests/
-
-cov:
 	coverage report -m
+	#poetry run pytest -vv --cov=task_manager --cov-report xml tasks/tests/
 
-.PHONY: install loaddb lint sort test install_requirements install_dev_equirements cov
+.PHONY: install loaddb lint sort test install_requirements install_dev_equirements
