@@ -74,9 +74,9 @@ class TaskModelTest(TestCase):
         )
         self.task.save()
 
-    # def tearDown(self):
-    #   self.user1.delete()
-    #   self.user2.delete()
+    def tearDown(self):
+        self.user1.delete()
+        self.user2.delete()
 
     def test_name_max_length(self):
         max_length = self.task._meta.get_field("name").max_length
