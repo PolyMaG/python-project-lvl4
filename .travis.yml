@@ -1,6 +1,10 @@
 language: python
 python: 3.6
 
+env:
+  - DJANGO_VERSION=3.1.1
+  - DJANGO_SETTINGS_MODULE='task_manager.settings'
+
 install: make
 
 before_install:
@@ -9,3 +13,6 @@ before_install:
 script:
   - make lint
   - make test
+
+after_success:
+  - coveralls
