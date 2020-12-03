@@ -19,7 +19,7 @@ sort:
 
 test:
 	coverage erase
-	coverage run --omit=*/venv/*,*/migrations/*,*/templates/* manage.py test
+	coverage run manage.py test
 	coverage report -m
 	#poetry run pytest -vv --cov=task_manager --cov-report xml tasks/tests/
 
