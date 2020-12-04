@@ -19,8 +19,8 @@ sort:
 
 test:
 	coverage erase
-	coverage run manage.py test
-	coverage report -m
+	coverage run --source=. manage.py test
+	coverage xml
 	#poetry run pytest -vv --cov=task_manager --cov-report xml tasks/tests/
 
 .PHONY: install loaddb lint sort test install_requirements install_dev_equirements

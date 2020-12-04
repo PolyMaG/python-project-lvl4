@@ -1,9 +1,13 @@
 [run]
 omit =
-    */venv/*
-    */migrations/*
-    */templates/*
     manage.py
     */__init__.py
-    */tests/*
+    */admin.py
+    */apps.py
+    */migrations/*
     */settings.py
+    */templates/*
+    */tests/*
+    */venv/*
+    */asgi.py
+    */wsgi.py
