@@ -14,8 +14,7 @@ class TagFormTest(TestCase):
     def test_tag_form_title_field_label(self):
         form = TagForm()
         self.assertTrue(
-            form.fields["title"].label is None
-            or form.fields["title"].label == "Title"
+            form.fields["title"].label is None or form.fields["title"].label == "Title"
         )
 
 
@@ -43,8 +42,7 @@ class TaskFormTest(TestCase):
     def test_task_form_name_field_label(self):
         form = TaskForm()
         self.assertTrue(
-            form.fields["name"].label is None
-            or form.fields["name"].label == "Name"
+            form.fields["name"].label is None or form.fields["name"].label == "Name"
         )
 
     def test_task_form_description_field_label(self):
@@ -71,6 +69,5 @@ class TaskFormTest(TestCase):
     def test_task_form_tags_field_label(self):
         form = TaskForm()
         self.assertTrue(
-            form.fields["tags"].label is None
-            or form.fields["tags"].label == "Tags"
+            form.fields["tags"].label is None or form.fields["tags"].label == "Tags"
         )
