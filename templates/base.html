@@ -18,23 +18,26 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand" href="/">Менеджер задач</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'tasks:my_tasks_list_url' %}">My tasks</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'tasks:tags_list_url' %}">Tags</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'tasks:status_list_url' %}">Status</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'tasks:assigned_to_list_url' %}">Assigned to</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tasks:assigned_to_list_url' %}">Пользователи</a>
                 </li>
                 {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tasks:status_list_url' %}">Статусы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tasks:tags_list_url' %}">Метки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tasks:tasks_list_url' %}">Задачи</a>
+                </li>
+
                 <li>
                     <div class="dropdown">
                         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -53,30 +56,32 @@
                 </li>
                 {% endif %}
             </ul>
-
-            <div class="sidebar-nav m-2">
+            <ul class="navbar-nav ml-auto">
                 {% if request.user.is_authenticated %}
                 User: {{ user.get_username }}
-                <a href="{% url 'logout' %}">Log out</a>
+                <li>
+                    <a href="{% url 'logout' %}">Выход</a>
+                </li>
                 {% else %}
-                <a href="{% url 'login' %}">Log in</a>
-                <a href="{% url 'sign_up_url' %}">Sign up</a>
-                {% endif %}
-            </div>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sign_up_url' %}">Регистрация</a>
+                </li>
+                {% endif %}
+            </ul>
             {% if request.user.is_authenticated and request.user.is_staff %}
             <a href="/admin" class="btn btn-outline-info px-md-4" role="button" aria-pressed="true">Admin</a>
             {% endif %}
         </div>
     </nav>
-    <div class="jumbotron text-center">
-        {% block heading %}
-        Task manager
+    <div>
+        {% block content %}
+        There is no content yet
         {% endblock %}
     </div>
-    {% block content %}
-    There is no content yet
-    {% endblock %}
 </body>
 
 </html>

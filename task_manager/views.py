@@ -1,11 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import redirect, reverse
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+# from django.views.generic import View
 
 
-def redirect_tasks(request):
-    return redirect(reverse("tasks:tasks_list_url"))
+def index_view(request):
+    return render(request, 'index.html')
 
 
 class SignUpView(generic.CreateView):

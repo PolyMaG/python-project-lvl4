@@ -19,7 +19,7 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('', views.redirect_tasks, name='redirect_tasks'),
+    path('', views.index_view, name='index_url'),
     path('tasks/', include('tasks.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
