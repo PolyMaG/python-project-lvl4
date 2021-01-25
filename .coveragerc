@@ -9,5 +9,6 @@ omit =
     */templates/*
     */tests/*
     */venv/*
+    *venv/*
     */asgi.py
     */wsgi.py

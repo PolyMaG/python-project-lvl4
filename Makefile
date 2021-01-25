@@ -12,8 +12,9 @@ sort:
 	poetry run isort tasks/tests/*.py
 
 test:
-	coverage erase
-	coverage run --source=. manage.py test
-	coverage xml
+	poetry run coverage erase
+	poetry run coverage run --source=. manage.py test
+	poetry run coverage report
+	poetry run coverage xml
 
 .PHONY: install loaddb lint sort test
