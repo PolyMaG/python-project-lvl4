@@ -181,4 +181,4 @@ class AssignedToListViewTest(TestCase):
         # test that two users were created
         resp_all = self.client.get(reverse("tasks:users_list_url"))
         self.assertEqual(resp_all.status_code, 200)
-        self.assertEqual(len(resp_all.context["assignees"]), 2)
+        self.assertEqual(len(resp_all.context["users"]), 2)
