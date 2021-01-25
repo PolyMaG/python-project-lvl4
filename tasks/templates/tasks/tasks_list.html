@@ -4,21 +4,47 @@
 Tasks list - {{ block.super }}
 {% endblock %}
 
-{% block heading %}
-<h2>Here's all tasks</h2>
-<h5><a href="{% url 'tasks:task_create_url' %}">Add one more</a></h5>
-{% endblock %}
+
 {% block content %}
+
 {% if tasks_list %}
 
-<div class="container">
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Задачи</h1>
 
-    <div class="row">
-        {% for task in tasks_list %}
-        {% include 'tasks/includes/task_card_template.html' %}
-        {% endfor %}
-    </div>
+    <a class="nav-link" href="{% url "tasks:task_create_url" %}">Создать задачу</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Статус</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Исполнитель</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks_list %}
+            <tr>
+                <th scope="row">{{ task.id }}</th>
+                <td>
+                    <a href="{{ task.get_absolute_url }}">{{ task.name }}</a>
+                </td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.creator }}</td>
+                <td>{{ task.assigned_to }}</td>
+                <td>
+                    <a href="{% url 'tasks:task_update_url' task.id %}">Изменить</a>
+                    <br>
+                    <a href="{% url 'tasks:task_delete_url' task.id %}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+
 {% else %}
 <p>No tasks are available.</p>
 {% endif %}

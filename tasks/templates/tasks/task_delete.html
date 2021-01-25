@@ -10,12 +10,18 @@ Delete task {{ task.name }} - {{ block.super }}
 
 {% block content %}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form action=" {% url 'tasks:task_delete_url' task.id %}" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-        <h3>Are you sure you want to delete "{{ task.name }}" task?</h3>
-        <a href="{% url 'tasks:tasks_list_url' %}">Cancel</a>
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </div>
-</form>
+
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Удаление задачи</h1>
+
+    <form action=" {% url 'tasks:task_delete_url' task.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <p>Вы уверены, что хотите удалить задачу "{{ task.name }}"?</p>
+            <a href="{% url "tasks:tasks_list_url" %}">Cancel</a>
+            <button type="submit" class="btn btn-danger">Да, удалить</button>
+        </div>
+    </form>
+</div>
+
 {% endblock %}

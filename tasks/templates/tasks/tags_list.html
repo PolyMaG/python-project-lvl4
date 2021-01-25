@@ -9,6 +9,36 @@ Tags list - {{ block.super }}
 {% endblock %}
 
 {% block content %}
+
+
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Метки</h1>
+
+    <a class="nav-link" href="{% url "tasks:tag_create_url" %}">Создать метку</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Имя</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <th scope="row">{{ tag.id }}</th>
+                <td>{{ tag.title }}</td>
+                <td>
+                    <a href="{% url 'tasks:tag_update_url' tag.id %}">Изменить</a>
+                    <br>
+                    <a href="{% url 'tasks:tag_delete_url' tag.id %}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 <div class="container">
     <div class="row">
         <h1 class="col-sm-4 offset-md-0 mb-3">Tags:</h1>

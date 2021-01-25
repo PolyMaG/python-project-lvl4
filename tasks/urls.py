@@ -28,8 +28,8 @@ urlpatterns = [
     path('status/all', views.StatusList.as_view(), name='status_list_url'),
     path('status/<int:pk>/', views.StatusDetail.as_view(),
          name='status_detail_url'),
-    path('assigned/all', views.AssignedToList.as_view(),
-         name='assigned_to_list_url'),
+    path('users/all', views.UsersList.as_view(),
+         name='users_list_url'),
     path('assigned/<int:pk>/', views.AssignedToDetail.as_view(),
          name='assigned_to_detail_url'),
 ]

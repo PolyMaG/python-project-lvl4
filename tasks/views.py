@@ -115,9 +115,9 @@ class StatusDetail(generic.DetailView):
     template_name = 'tasks/status_detail.html'
 
 
-class AssignedToList(generic.ListView):
-    template_name = 'tasks/assigned_to_list.html'
-    context_object_name = 'assignees'
+class UsersList(generic.ListView):
+    template_name = 'tasks/users_list.html'
+    context_object_name = 'users'
 
     def get_queryset(self):
         return User.objects.all()

@@ -13,26 +13,27 @@ Edit task - {{ block.super }}
 <p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
-<div class="form-proup col-md-3">
-    <h3>"{{ task.name }}" task</h3>
-</div>
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Изменение задачи"{{ task.name }}"</h1>
 
-<form action=" {% url 'tasks:task_update_url' task.id %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="form-group col-md-3">
-        {% if field.errors %}
-        <div class="alert alert-danger">
-            {{ field.errors }}
+    <form action=" {% url 'tasks:task_update_url' task.id %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group col-md-3">
+            {% if field.errors %}
+            <div class="alert alert-danger">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            <div class="form-group">
+                {{ field.label }}
+                {{ field }}
+            </div>
         </div>
-        {% endif %}
-
-        {{ field.label }}
-        {{ field }}
-    </div>
-    {% endfor %}
-    <div class="form-group col-md-3">
-        <button type="submit" class="btn btn-primary mt-3">Update</button>
-    </div>
-</form>
+        {% endfor %}
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Изменить">
+        </div>
+    </form>
+</div>
 {% endblock %}

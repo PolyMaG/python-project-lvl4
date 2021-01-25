@@ -10,15 +10,21 @@ Edit tag - {{ block.super }}
 
 {% block content %}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<div class="form-proup col-md-3">
-    <h3>"{{ tag.title }}" tag</h3>
-</div>
 
-<form action=" {% url 'tasks:tag_update_url' tag.id %}" method="post">
-    {% csrf_token %}
-    <div class="form-group col-md-3">
-        Title: {{ form.title }}
-        <button type="submit" class="btn btn-primary mt-3">Update</button>
-    </div>
-</form>
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Изменение метки</h1>
+
+    <form action=" {% url 'tasks:tag_update_url' tag.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group col-md-3">
+            Имя: {{ form.title }}
+
+            <div class="d-grid gap-2 d-md-block">
+                <a class="btn btn-primary" href="{% url "tasks:tags_list_url" %}" role="button">Отмена</a>
+                <button type="submit" class="btn btn-primary mt-3">Изменить</button>
+            </div>
+
+        </div>
+    </form>
+</div>
 {% endblock %}

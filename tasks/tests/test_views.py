@@ -42,10 +42,6 @@ class TaskListViewTest(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(len(resp.context["tasks_list"]) == 1)
 
-    def test_redirect(self):
-        resp = self.client.get(reverse("redirect_tasks"))
-        self.assertRedirects(resp, "/tasks/")
-
 
 class TagListViewTest(TestCase):
     @classmethod
@@ -183,6 +179,6 @@ class AssignedToListViewTest(TestCase):
 
     def test_all_users_in_list(self):
         # test that two users were created
-        resp_all = self.client.get(reverse("tasks:assigned_to_list_url"))
+        resp_all = self.client.get(reverse("tasks:users_list_url"))
         self.assertEqual(resp_all.status_code, 200)
         self.assertEqual(len(resp_all.context["assignees"]), 2)

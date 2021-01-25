@@ -9,26 +9,53 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4 offset-md-1">
-            <p>
-                Description: {{ task.description }}<br>
-                Status: {{ task.status }}<br>
-                Creator: {{ task.creator }}<br>
-                Assigned to: {{ task.assigned_to }}<br>
-                Tags:
-                {% for tag in task.tags.all %}
-                <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
-                {% endfor %}
-            </p>
+
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">
+
+        Просмотр задачи
+
+    </h1>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h2>{{ task.name }}</h2>
+        </div>
+        <div class="card-body bg-light">
+            <p>{{ task.description }}</p>
+            <hr>
+            <div class="container">
+                <div class="row p-1">
+                    <div class="col">Автор</div>
+                    <div class="col">{{ task.creator }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">Исполнитель</div>
+                    <div class="col">{{ task.assigned_to }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">Статус</div>
+                    <div class="col">{{ task.status }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">
+                        <h6>Метки:</h6>
+                        <ul>
+                            {% for tag in task.tags.all %}
+                            <li><a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">
+                        <a href="{% url "tasks:task_update_url" task.id %}">Изменить</a>
+                        <br>
+                        <a href="{% url "tasks:task_delete_url" task.id %}">Удалить</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-{% endblock %}
-{% block buttons %}
-<a href="{% url "tasks:task_update_url" task.id %}" class="btn btn-outline-info ml-2" role="button"
-    aria-pressed="true">Update</a>
-<a href="{% url "tasks:task_delete_url" task.id %}" class="btn btn-outline-danger mx-2" role="button"
-    aria-pressed="true">Delete</a>
 {% endblock %}

@@ -10,12 +10,20 @@ Delete tag {{ tag.title }} - {{ block.super }}
 
 {% block content %}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-<form action=" {% url 'tasks:tag_delete_url' tag.id %}" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-        <h3>Are you sure you want to delete "{{ tag.title }}" tag?</h3>
-        <a href="{% url "tasks:tag_detail_url" tag.id %}">Cancel</a>
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </div>
-</form>
+
+
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">Удаление метки</h1>
+
+    <form action=" {% url 'tasks:tag_delete_url' tag.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <p>Вы уверены, что хотите удалить метку "{{ tag.title }}"?</p>
+            <a href="{% url "tasks:tags_list_url" %}">Cancel</a>
+            <button type="submit" class="btn btn-danger">Да, удалить</button>
+        </div>
+    </form>
+</div>
+
+
 {% endblock %}
