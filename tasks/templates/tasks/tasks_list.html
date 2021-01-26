@@ -1,4 +1,5 @@
 {% extends "tasks/base_tasks.html" %}
+{% load i18n %}
 
 {% block title %}
 Tasks list - {{ block.super }}
@@ -10,18 +11,18 @@ Tasks list - {{ block.super }}
 {% if tasks_list %}
 
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Задачи</h1>
+    <h1 class="my-4">{% trans 'Tasks' %}</h1>
 
-    <a class="nav-link" href="{% url "tasks:task_create_url" %}">Создать задачу</a>
+    <a class="nav-link" href="{% url "tasks:task_create_url" %}">{% trans 'Create task' %}</a>
 
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Статус</th>
-                <th scope="col">Автор</th>
-                <th scope="col">Исполнитель</th>
+                <th scope="col">{% trans 'Name' %}</th>
+                <th scope="col">{% trans 'Status' %}</th>
+                <th scope="col">{% trans 'Creator' %}</th>
+                <th scope="col">{% trans 'Assignee' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -35,9 +36,9 @@ Tasks list - {{ block.super }}
                 <td>{{ task.creator }}</td>
                 <td>{{ task.assigned_to }}</td>
                 <td>
-                    <a href="{% url 'tasks:task_update_url' task.id %}">Изменить</a>
+                    <a href="{% url 'tasks:task_update_url' task.id %}">{% trans 'Edit' %}</a>
                     <br>
-                    <a href="{% url 'tasks:task_delete_url' task.id %}">Удалить</a>
+                    <a href="{% url 'tasks:task_delete_url' task.id %}">{% trans 'Delete' %}</a>
                 </td>
             </tr>
             {% endfor %}
@@ -46,6 +47,6 @@ Tasks list - {{ block.super }}
 </div>
 
 {% else %}
-<p>No tasks are available.</p>
+<p>{% trans 'No tasks are available.' %}</p>
 {% endif %}
 {% endblock %}

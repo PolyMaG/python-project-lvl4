@@ -13,13 +13,13 @@ Tag create - {{ block.super }}
 
 
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Создать метку</h1>
+    <h1 class="my-4">{% trans 'Create tag' %}</h1>
 
     <form action=" {% url 'tasks:tag_create_url' %}" method="post">
         {% csrf_token %}
         <div class="form-group col-md-3">
-            Имя: {{ form.title }}
-            <button type="submit" class="btn btn-primary mt-3">Создать</button>
+            {% trans 'Title' %}: {{ form.title }}
+            <button type="submit" class="btn btn-primary mt-3">{% trans 'Create' %}</button>
         </div>
     </form>
 

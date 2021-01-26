@@ -1,4 +1,5 @@
 {% extends 'tasks/base_tasks.html' %}
+{% load i18n %}
 
 {% block title %}
 Status list - {{ block.super }}
@@ -11,12 +12,12 @@ Status list - {{ block.super }}
 {% block content %}
 
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Статусы</h1>
+    <h1 class="my-4">{% trans 'Status' %}</h1>
 <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Имя</th>
+            <th scope="col">{% trans 'Name' %}</th>
         </tr>
     </thead>
     <tbody>

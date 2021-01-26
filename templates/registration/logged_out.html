@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-    <p>You have been logged out!</p>
+    <p>{% trans 'You have been logged out!' %}</p>
 
-    <a href="{% url 'login'%}">Click here to login again.</a>
+    <a href="{% url 'login'%}">{% trans 'Click here to login again.' %}</a>
 </div>
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'tasks/base_tasks.html' %}
+{% load i18n %}
 
 {% block title %}
 Edit tag - {{ block.super }}
@@ -12,16 +13,16 @@ Edit tag - {{ block.super }}
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Изменение метки</h1>
+    <h1 class="my-4">{% trans 'Edit tag' %}</h1>
 
     <form action=" {% url 'tasks:tag_update_url' tag.id %}" method="post">
         {% csrf_token %}
         <div class="form-group col-md-3">
-            Имя: {{ form.title }}
+            {% trans 'Title' %}: {{ form.title }}
 
             <div class="d-grid gap-2 d-md-block">
-                <a class="btn btn-primary" href="{% url "tasks:tags_list_url" %}" role="button">Отмена</a>
-                <button type="submit" class="btn btn-primary mt-3">Изменить</button>
+                <a class="btn btn-primary" href="{% url "tasks:tags_list_url" %}" role="button">{% trans 'Cancel' %}</a>
+                <button type="submit" class="btn btn-primary mt-3">{% trans 'Edit' %}</button>
             </div>
 
         </div>

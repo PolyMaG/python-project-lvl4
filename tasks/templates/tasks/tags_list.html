@@ -1,4 +1,5 @@
 {% extends 'tasks/base_tasks.html' %}
+{% load i18n %}
 
 {% block title %}
 Tags list - {{ block.super }}
@@ -12,15 +13,15 @@ Tags list - {{ block.super }}
 
 
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Метки</h1>
+    <h1 class="my-4">{% trans 'Tags' %}</h1>
 
-    <a class="nav-link" href="{% url "tasks:tag_create_url" %}">Создать метку</a>
+    <a class="nav-link" href="{% url "tasks:tag_create_url" %}">{% trans 'Create tag' %}</a>
 
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Имя</th>
+                <th scope="col">{% trans 'Title' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,9 +30,9 @@ Tags list - {{ block.super }}
                 <th scope="row">{{ tag.id }}</th>
                 <td>{{ tag.title }}</td>
                 <td>
-                    <a href="{% url 'tasks:tag_update_url' tag.id %}">Изменить</a>
+                    <a href="{% url 'tasks:tag_update_url' tag.id %}">{% trans 'Edit' %}</a>
                     <br>
-                    <a href="{% url 'tasks:tag_delete_url' tag.id %}">Удалить</a>
+                    <a href="{% url 'tasks:tag_delete_url' tag.id %}">{% trans 'Delete' %}</a>
                 </td>
             </tr>
             {% endfor %}

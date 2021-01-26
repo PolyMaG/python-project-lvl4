@@ -1,4 +1,5 @@
 {% extends 'tasks/base_tasks.html' %}
+{% load i18n %}
 
 {% block title %}
 Delete tag {{ tag.title }} - {{ block.super }}
@@ -13,14 +14,14 @@ Delete tag {{ tag.title }} - {{ block.super }}
 
 
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">Удаление метки</h1>
+    <h1 class="my-4">{% trans 'Delete tag' %}</h1>
 
     <form action=" {% url 'tasks:tag_delete_url' tag.id %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <p>Вы уверены, что хотите удалить метку "{{ tag.title }}"?</p>
-            <a href="{% url "tasks:tags_list_url" %}">Cancel</a>
-            <button type="submit" class="btn btn-danger">Да, удалить</button>
+            <p>{% trans 'Are you sure you want delete tag' %} "{{ tag.title }}"?</p>
+            <a href="{% url "tasks:tags_list_url" %}">{% trans 'Cancel' %}</a>
+            <button type="submit" class="btn btn-danger">{% trans 'Yes, delete' %}</button>
         </div>
     </form>
 </div>
