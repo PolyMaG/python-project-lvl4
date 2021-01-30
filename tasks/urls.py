@@ -1,39 +1,27 @@
 from django.urls import path
-from django_filters.views import FilterView
 
 from . import views
-from .models import Task
 
-app_name = 'tasks'
+app_name = "tasks"
 urlpatterns = [
-    path('', views.task_list, name='tasks_list_url'),
-    #path('', views.FilterView.as_view(model=Task, filterset_fields=['status', 'assigned_to', 'tags']), name='tasks_list_url'),
-    #path('', views.TasksList.as_view(), name='tasks_list_url'),
-    path('my/', views.MyTasksList.as_view(), name='my_tasks_list_url'),
-    path('task/create/', views.TaskCreate.as_view(), name='task_create_url'),
-    path('task/<int:pk>/',
-         views.TaskDetail.as_view(),
-         name='task_detail_url'),
-    path('task/<int:pk>/update/',
-         views.TaskUpdate.as_view(),
-         name='task_update_url'),
-    path('task/<int:pk>/delete/',
-         views.TaskDelete.as_view(), name='task_delete_url'),
-    path('tags/', views.TagsList.as_view(), name='tags_list_url'),
-    path('tag/create/', views.TagCreate.as_view(), name='tag_create_url'),
-    path('tag/<int:pk>/',
-         views.TagDetail.as_view(),
-         name='tag_detail_url'),
-    path('tag/<int:pk>/update/',
-         views.TagUpdate.as_view(), name='tag_update_url'),
-    path('tag/<int:pk>/delete/',
-         views.TagDelete.as_view(), name='tag_delete_url'),
-    path('tags/', views.TagsList.as_view(), name='tags_list_url'),
-    path('status/all', views.StatusList.as_view(), name='status_list_url'),
-    path('status/<int:pk>/', views.StatusDetail.as_view(),
-         name='status_detail_url'),
-    path('users/all', views.UsersList.as_view(),
-         name='users_list_url'),
-    path('assigned/<int:pk>/', views.AssignedToDetail.as_view(),
-         name='assigned_to_detail_url'),
+    path("", views.task_list, name="tasks_list_url"),
+    path("my/", views.MyTasksList.as_view(), name="my_tasks_list_url"),
+    path("task/create/", views.TaskCreate.as_view(), name="task_create_url"),
+    path("task/<int:pk>/", views.TaskDetail.as_view(), name="task_detail_url"),
+    path("task/<int:pk>/update/", views.TaskUpdate.as_view(), name="task_update_url"),
+    path("task/<int:pk>/delete/", views.TaskDelete.as_view(), name="task_delete_url"),
+    path("tags/", views.TagsList.as_view(), name="tags_list_url"),
+    path("tag/create/", views.TagCreate.as_view(), name="tag_create_url"),
+    path("tag/<int:pk>/", views.TagDetail.as_view(), name="tag_detail_url"),
+    path("tag/<int:pk>/update/", views.TagUpdate.as_view(), name="tag_update_url"),
+    path("tag/<int:pk>/delete/", views.TagDelete.as_view(), name="tag_delete_url"),
+    path("tags/", views.TagsList.as_view(), name="tags_list_url"),
+    path("status/all", views.StatusList.as_view(), name="status_list_url"),
+    path("status/<int:pk>/", views.StatusDetail.as_view(), name="status_detail_url"),
+    path("users/all", views.UsersList.as_view(), name="users_list_url"),
+    path(
+        "assigned/<int:pk>/",
+        views.AssignedToDetail.as_view(),
+        name="assigned_to_detail_url",
+    ),
 ]

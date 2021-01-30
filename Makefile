@@ -9,6 +9,7 @@ lint:
 
 sort:
 	poetry run isort task_manager/*.py
+	poetry run isort tasks/*.py
 	poetry run isort tasks/tests/*.py
 
 test:
