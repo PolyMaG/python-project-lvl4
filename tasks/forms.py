@@ -33,3 +33,13 @@ class TagForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'})
         }
+
+
+import django_filters
+
+class TaskFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(lookup_expr='iexact')
+
+    class Meta:
+        model = Task
+        fields = ['status', 'assigned_to', 'tags', 'creator']

@@ -1,10 +1,14 @@
 from django.urls import path
+from django_filters.views import FilterView
 
 from . import views
+from .models import Task
 
 app_name = 'tasks'
 urlpatterns = [
-    path('', views.TasksList.as_view(), name='tasks_list_url'),
+    path('', views.task_list, name='tasks_list_url'),
+    #path('', views.FilterView.as_view(model=Task, filterset_fields=['status', 'assigned_to', 'tags']), name='tasks_list_url'),
+    #path('', views.TasksList.as_view(), name='tasks_list_url'),
     path('my/', views.MyTasksList.as_view(), name='my_tasks_list_url'),
     path('task/create/', views.TaskCreate.as_view(), name='task_create_url'),
     path('task/<int:pk>/',

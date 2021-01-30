@@ -2,12 +2,20 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import View
 from django.views import generic
+from django_filters.views import FilterView
 
-from .forms import TaskForm
+from .forms import TaskForm, TaskFilter
 from .models import Task, Tag, TaskStatus
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+
+
+def task_list(request):
+    f = TaskFilter(request.GET, queryset=Task.objects.all())
+    return render(request, 'tasks/task_filter.html', {'filter': f})
+
+
 
 
 class TasksList(generic.ListView):
