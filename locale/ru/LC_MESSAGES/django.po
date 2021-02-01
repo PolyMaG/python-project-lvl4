@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-26 13:27+0300\n"
+"POT-Creation-Date: 2021-02-01 23:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,28 +22,29 @@ msgstr ""
 
 #: tasks/templates/tasks/status_list.html:15
 #: tasks/templates/tasks/task_detail.html:36
-#: tasks/templates/tasks/tasks_list.html:23 templates/base.html:33
+#: tasks/templates/tasks/tasks_list.html:23
+#: tasks/templates/tasks/tasks_list.html:61 templates/base.html:33
 msgid "Status"
 msgstr "Статусы"
 
 #: tasks/templates/tasks/status_list.html:20
-#: tasks/templates/tasks/tasks_list.html:22
+#: tasks/templates/tasks/tasks_list.html:60
 #: tasks/templates/tasks/users_list.html:19
 msgid "Name"
 msgstr "Имя"
 
-#: tasks/templates/tasks/tag_create.html:16
+#: tasks/templates/tasks/tag_create.html:17
 #: tasks/templates/tasks/tags_list.html:18
 msgid "Create tag"
 msgstr "Создать метку"
 
-#: tasks/templates/tasks/tag_create.html:21
+#: tasks/templates/tasks/tag_create.html:22
 #: tasks/templates/tasks/tag_update.html:21
 #: tasks/templates/tasks/tags_list.html:24
 msgid "Title"
 msgstr "Имя"
 
-#: tasks/templates/tasks/tag_create.html:22
+#: tasks/templates/tasks/tag_create.html:23
 msgid "Create"
 msgstr "Создать"
 
@@ -73,18 +74,19 @@ msgstr "Изменить метку"
 #: tasks/templates/tasks/tag_update.html:25
 #: tasks/templates/tasks/tags_list.html:33
 #: tasks/templates/tasks/task_detail.html:51
-#: tasks/templates/tasks/tasks_list.html:39
+#: tasks/templates/tasks/tasks_list.html:77
 msgid "Edit"
 msgstr "Изменить"
 
 #: tasks/templates/tasks/tags_list.html:16
-#: tasks/templates/tasks/task_detail.html:41 templates/base.html:36
+#: tasks/templates/tasks/task_detail.html:41
+#: tasks/templates/tasks/tasks_list.html:36 templates/base.html:36
 msgid "Tags"
 msgstr "Метки"
 
 #: tasks/templates/tasks/tags_list.html:35
 #: tasks/templates/tasks/task_detail.html:53
-#: tasks/templates/tasks/tasks_list.html:41
+#: tasks/templates/tasks/tasks_list.html:79
 #: venv/lib/python3.8/site-packages/django/forms/formsets.py:391
 msgid "Delete"
 msgstr "Удалить"
@@ -102,28 +104,34 @@ msgid "Task view"
 msgstr "Просмотр задачи"
 
 #: tasks/templates/tasks/task_detail.html:28
-#: tasks/templates/tasks/tasks_list.html:24
+#: tasks/templates/tasks/tasks_list.html:62
 msgid "Creator"
 msgstr "Автор"
 
 #: tasks/templates/tasks/task_detail.html:32
-#: tasks/templates/tasks/tasks_list.html:25
-msgid "Assignee"
+#: tasks/templates/tasks/tasks_list.html:30
+#: tasks/templates/tasks/tasks_list.html:63
+#, fuzzy
+msgid "Assigned_to"
 msgstr "Исполнитель"
 
 #: tasks/templates/tasks/task_update.html:18
 msgid "Edit task"
 msgstr "Изменить задачу"
 
-#: tasks/templates/tasks/tasks_list.html:14 templates/base.html:39
+#: tasks/templates/tasks/tasks_list.html:12 templates/base.html:39
 msgid "Tasks"
 msgstr "Задачи"
 
-#: tasks/templates/tasks/tasks_list.html:16
+#: tasks/templates/tasks/tasks_list.html:14
 msgid "Create task"
 msgstr "Создать задачу"
 
-#: tasks/templates/tasks/tasks_list.html:50
+#: tasks/templates/tasks/tasks_list.html:51
+msgid "Filter"
+msgstr "Показать"
+
+#: tasks/templates/tasks/tasks_list.html:88
 msgid "No tasks are available."
 msgstr "Нет задач для отображения"
 

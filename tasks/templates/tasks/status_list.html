@@ -13,32 +13,22 @@ Status list - {{ block.super }}
 
 <div class="container wrapper flex-grow-1">
     <h1 class="my-4">{% trans 'Status' %}</h1>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">{% trans 'Name' %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for status in status_all %}
-        <tr>
-            <th scope="row">{{ status.id }}</th>
-            <td>{{ status.name }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">{% trans 'Name' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for status in status_all %}
+            <tr>
+                <th scope="row">{{ status.id }}</th>
+                <td>{{ status.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
-
-{% for status in status_all %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4 offset-md-1">
-            <h4><a href="{% url 'tasks:status_detail_url' status.id %}"> - {{ status.name }}</h4>
-        </div>
-    </div>
-</div>
-{% endfor %}
 {% endblock %}

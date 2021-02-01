@@ -10,10 +10,10 @@ from .models import Tag, Task, TaskStatus
 
 
 def task_list(request):
-    if request.GET.get('self_tasks') == 'on':
-        queryset=Task.objects.filter(creator=request.user)
+    if request.GET.get("self_tasks") == "on":
+        queryset = Task.objects.filter(creator=request.user)
     else:
-        queryset=Task.objects.all()
+        queryset = Task.objects.all()
     f = TaskFilter(request.GET, queryset)
     return render(request, "tasks/tasks_list.html", {"filter": f})
 
@@ -24,14 +24,6 @@ class TasksList(generic.ListView):
 
     def get_queryset(self):
         return Task.objects.all()
-
-
-class MyTasksList(LoginRequiredMixin, generic.ListView):
-    template_name = "tasks/my_tasks_list.html"
-    context_object_name = "tasks_list"
-
-    def get_queryset(self):
-        return Task.objects.filter(creator=self.request.user)
 
 
 class TaskDetail(generic.DetailView):
@@ -78,11 +70,6 @@ class TagsList(generic.ListView):
         return Tag.objects.all()
 
 
-class TagDetail(generic.DetailView):
-    model = Tag
-    template_name = "tasks/tag_detail.html"
-
-
 class TagCreate(LoginRequiredMixin, generic.edit.CreateView):
     raise_exception = True
     model = Tag
@@ -112,19 +99,9 @@ class StatusList(generic.ListView):
         return TaskStatus.objects.all()
 
 
-class StatusDetail(generic.DetailView):
-    model = TaskStatus
-    template_name = "tasks/status_detail.html"
-
-
 class UsersList(generic.ListView):
     template_name = "tasks/users_list.html"
     context_object_name = "users"
 
     def get_queryset(self):
         return User.objects.all()
-
-
-class AssignedToDetail(generic.DetailView):
-    model = User
-    template_name = "tasks/assigned_to_detail.html"
