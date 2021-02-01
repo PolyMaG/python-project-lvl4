@@ -10,7 +10,11 @@ from .models import Tag, Task, TaskStatus
 
 
 def task_list(request):
-    f = TaskFilter(request.GET, queryset=Task.objects.all())
+    if request.GET.get('self_tasks') == 'on':
+        queryset=Task.objects.filter(creator=request.user)
+    else:
+        queryset=Task.objects.all()
+    f = TaskFilter(request.GET, queryset)
     return render(request, "tasks/tasks_list.html", {"filter": f})
 
 

@@ -19,27 +19,35 @@ Tasks list - {{ block.super }}
         <div class="card-body bg-light">
             <form class="form-inline center" method="get">
                 {% csrf_token %}
-                <div class="form-group mr-3 ml-2">
-                    <label>{% trans 'Status' %}</label>{{ filter.form.status }}
+                <div class="form-group">
+                    <label>{% trans 'Status' %}</label>
+                    <div class="ml-2 mr-3">
+                        {{ filter.form.status }}
+                    </div>
+                    </select>
                 </div>
-                <div class="form-group mr-3 ml-2">
-                    <label>{% trans 'Assigned_to' %}</label>{{ filter.form.assigned_to }}
+                <div class="form-group">
+                    <label>{% trans 'Assigned_to' %}</label>
+                    <div class="ml-2 mr-3">
+                        {{ filter.form.assigned_to }}
+                    </div>
                 </div>
-                <div class="form-group mr-3 ml-2">
-                    <label>{% trans 'Tags' %}</label>{{ filter.form.tags }}
+                <div class="form-group">
+                    <label>{% trans 'Tags' %}</label>
+                    <div class="ml-2 mr-3">
+                        {{ filter.form.tags }}
+                    </div>
                 </div>
-
                 <div class="form-group">
                     <div class="mr-3">
                         <div class="form-check"><input type="checkbox" name="self_tasks" class="form-check-input"
-                                id="id_self_tasks"><label class="form-check-label" for="id_self_tasks">Только свои
+                                id="id_self_tasks">
+                            <label class="form-check-label" for="id_self_tasks">Только свои
                                 задачи</label>
-                            {{ filter.form.creator }}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-
                     <input class="btn btn-primary" type="submit" value={% trans 'Filter' %} />
             </form>
         </div>

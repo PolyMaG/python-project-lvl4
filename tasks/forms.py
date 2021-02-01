@@ -28,7 +28,8 @@ class TagForm(forms.ModelForm):
 
 class TaskFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr="iexact")
+    creator = django_filters.BooleanFilter()
 
     class Meta:
         model = Task
-        fields = ["status", "assigned_to", "tags", "creator"]
+        fields = ["status", "assigned_to", "tags"]

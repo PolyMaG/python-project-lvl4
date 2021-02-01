@@ -149,7 +149,7 @@ class MyTasksListViewTest(TestCase):
         # test that three tasks were created
         resp_all = self.client.get(reverse("tasks:tasks_list_url"))
         self.assertEqual(resp_all.status_code, 200)
-        #   self.assertEqual(len(resp_all.context["tasks_list"]), 3)
+        #   self.assertEqual(len(resp_all.context["filter"]), 3)
 
         # log in user1
         self.client.login(username="test1", password="12test12")
