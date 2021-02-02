@@ -18,12 +18,14 @@ def task_list(request):
     return render(request, "tasks/tasks_list.html", {"filter": f})
 
 
+"""
 class TasksList(generic.ListView):
     template_name = "tasks/tasks_list.html"
     context_object_name = "tasks_list"
 
     def get_queryset(self):
         return Task.objects.all()
+"""
 
 
 class TaskDetail(generic.DetailView):

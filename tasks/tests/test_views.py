@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-# from tasks.forms import TagForm, TaskForm
+
+from tasks.forms import TaskFilter
 from tasks.models import Tag, Task, TaskStatus
 
 
@@ -37,11 +38,11 @@ class TaskListViewTest(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertTemplateUsed(resp, "tasks/tasks_list.html")
 
-
-# def test_lists_all_tasks(self):
-#     resp = self.client.get(reverse("tasks:tasks_list_url"))
-#     self.assertEqual(resp.status_code, 200)
-#     self.assertTrue(len(resp.context["tasks_list"]) == 1)
+    def test_lists_all_tasks(self):
+        f = TaskFilter(queryset=Task.objects.all())
+        resp = self.client.get(reverse("tasks:tasks_list_url"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(len(f.qs) == 1)
 
 
 class TagListViewTest(TestCase):
@@ -76,7 +77,7 @@ class StatusListViewTest(TestCase):
         TaskStatus.objects.create(name="test")
 
     def test_view_url_exists_at_desired_location(self):
-        resp = self.client.get("/tasks/status/all")
+        resp = self.client.get("/tasks/statuses/")
         self.assertEqual(resp.status_code, 200)
 
     def test_view_url_accessible_by_name(self):
@@ -132,37 +133,36 @@ class MyTasksListViewTest(TestCase):
         )
         test_task3.save()
 
-    def test_redirect_if_not_logged_in(self):
-        resp = self.client.get(reverse("tasks:my_tasks_list_url"))
-        self.assertRedirects(resp, "/accounts/login/?next=/tasks/my/")
-
     def test_logged_in_uses_correct_template(self):
         self.client.login(username="test1", password="12test12")
-        resp = self.client.get(reverse("tasks:my_tasks_list_url"))
+        resp = self.client.get(reverse("index_url"))
 
         # log in user
         self.assertEqual(str(resp.context["user"]), "test1")
         self.assertEqual(resp.status_code, 200)
-        self.assertTemplateUsed(resp, "tasks/my_tasks_list.html")
+        self.assertTemplateUsed(resp, "index.html")
 
     def test_only_my_tasks_in_list(self):
         # test that three tasks were created
+        f = TaskFilter(queryset=Task.objects.all())
         resp_all = self.client.get(reverse("tasks:tasks_list_url"))
         self.assertEqual(resp_all.status_code, 200)
-        #   self.assertEqual(len(resp_all.context["filter"]), 3)
+        self.assertEqual(len(f.qs), 3)
 
         # log in user1
         self.client.login(username="test1", password="12test12")
-        resp = self.client.get(reverse("tasks:my_tasks_list_url"))
+        resp = self.client.get(reverse("tasks:tasks_list_url"))
         self.assertEqual(str(resp.context["user"]), "test1")
         self.assertEqual(resp.status_code, 200)
-        self.assertTrue("tasks_list" in resp.context)
+        self.assertTrue("filter" in resp.context)
 
         # test that only two tasks were created by user1
-        self.assertEqual(len(resp.context["tasks_list"]), 2)
+        f = TaskFilter(queryset=Task.objects.filter(creator=resp.context["user"]))
+        self.assertEqual(len(f.qs), 2)
 
         # test that all tasks in 'my list' were created by user1
-        for task in resp.context["tasks_list"]:
+        f = TaskFilter(queryset=Task.objects.filter(creator=resp.context["user"]))
+        for task in f.qs:
             self.assertEqual(resp.context["user"], task.creator)
 
 

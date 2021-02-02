@@ -25,10 +25,6 @@ class TagModelTest(TestCase):
         tag_name = tag.title
         self.assertEquals(tag_name, str(tag))
 
-    def test_absolute_url(self):
-        tag = Tag.objects.get(id=1)
-        self.assertEquals(tag.get_absolute_url(), "/tasks/tag/1/")
-
 
 class StatusModelTest(TestCase):
     @classmethod
