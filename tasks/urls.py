@@ -4,7 +4,7 @@ from . import views
 
 app_name = "tasks"
 urlpatterns = [
-    path("", views.task_list, name="tasks_list_url"),
+    path("tasks/", views.task_list, name="tasks_list_url"),
     path("task/create/", views.TaskCreate.as_view(), name="task_create_url"),
     path("task/<int:pk>/", views.TaskDetail.as_view(), name="task_detail_url"),
     path("task/<int:pk>/update/", views.TaskUpdate.as_view(), name="task_update_url"),

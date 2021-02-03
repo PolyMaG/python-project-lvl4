@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index_view, name='index_url'),
-    path('tasks/', include('tasks.urls')),
+    path('task-manager/', include('tasks.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', views.SignUpView.as_view(), name='sign_up_url'),

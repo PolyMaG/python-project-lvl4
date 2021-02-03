@@ -25,7 +25,7 @@ class TaskListViewTest(TestCase):
         )
 
     def test_view_url_exists_at_desired_location(self):
-        resp = self.client.get("/tasks/")
+        resp = self.client.get("/task-manager/tasks/")
         self.assertEqual(resp.status_code, 200)
 
     def test_view_url_accessible_by_name(self):
@@ -51,7 +51,7 @@ class TagListViewTest(TestCase):
         Tag.objects.create(title="test tag")
 
     def test_view_url_exists_at_desired_location(self):
-        resp = self.client.get("/tasks/tags/")
+        resp = self.client.get("/task-manager/tags/")
         self.assertEqual(resp.status_code, 200)
 
     def test_view_url_accessible_by_name(self):
@@ -76,7 +76,7 @@ class StatusListViewTest(TestCase):
         TaskStatus.objects.create(name="test")
 
     def test_view_url_exists_at_desired_location(self):
-        resp = self.client.get("/tasks/statuses/")
+        resp = self.client.get("/task-manager/statuses/")
         self.assertEqual(resp.status_code, 200)
 
     def test_view_url_accessible_by_name(self):

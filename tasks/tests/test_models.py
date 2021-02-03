@@ -82,7 +82,7 @@ class TaskModelTest(TestCase):
         self.assertEquals(self.task.name, str(self.task))
 
     def test_absolute_url(self):
-        self.assertEquals(self.task.get_absolute_url(), "/tasks/task/1/")
+        self.assertEquals(self.task.get_absolute_url(), "/task-manager/task/1/")
 
     def test_read_task(self):
         self.assertEqual(self.task.status, self.status)
