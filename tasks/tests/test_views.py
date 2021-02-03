@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-
 from tasks.forms import TaskFilter
 from tasks.models import Tag, Task, TaskStatus
 
