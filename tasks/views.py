@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
@@ -9,6 +10,7 @@ from .forms import TaskFilter, TaskForm
 from .models import Tag, Task, TaskStatus
 
 
+@login_required
 def task_list(request):
     if request.GET.get("self_tasks") == "on":
         queryset = Task.objects.filter(creator=request.user)
@@ -18,17 +20,7 @@ def task_list(request):
     return render(request, "tasks/tasks_list.html", {"filter": f})
 
 
-"""
-class TasksList(generic.ListView):
-    template_name = "tasks/tasks_list.html"
-    context_object_name = "tasks_list"
-
-    def get_queryset(self):
-        return Task.objects.all()
-"""
-
-
-class TaskDetail(generic.DetailView):
+class TaskDetail(LoginRequiredMixin, generic.DetailView):
     model = Task
     template_name = "tasks/task_detail.html"
 
@@ -64,7 +56,7 @@ class TaskDelete(LoginRequiredMixin, generic.edit.DeleteView):
     success_url = reverse_lazy("tasks:tasks_list_url")
 
 
-class TagsList(generic.ListView):
+class TagsList(LoginRequiredMixin, generic.ListView):
     template_name = "tasks/tags_list.html"
     context_object_name = "tags"
 
@@ -93,7 +85,7 @@ class TagDelete(LoginRequiredMixin, generic.edit.DeleteView):
     success_url = reverse_lazy("tasks:tags_list_url")
 
 
-class StatusList(generic.ListView):
+class StatusList(LoginRequiredMixin, generic.ListView):
     template_name = "tasks/status_list.html"
     context_object_name = "status_all"
 

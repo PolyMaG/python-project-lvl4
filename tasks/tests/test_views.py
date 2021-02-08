@@ -24,6 +24,10 @@ class TaskListViewTest(TestCase):
             assigned_to=user,
         )
 
+    def setUp(self):
+        # Run once for every test method to setup clean data.
+        self.client.login(username="test1", password="12test12")
+
     def test_view_url_exists_at_desired_location(self):
         resp = self.client.get("/task-manager/tasks/")
         self.assertEqual(resp.status_code, 200)
@@ -45,6 +49,14 @@ class TaskListViewTest(TestCase):
 
 
 class TagListViewTest(TestCase):
+    def setUp(self):
+        # Run once for every test method to setup clean data.
+        test_user1 = User.objects.create_user(
+            username="test1", password="12test12", email="test@example.com"
+        )
+        test_user1.save()
+        self.client.login(username="test1", password="12test12")
+
     @classmethod
     def setUpTestData(cls):
         # Run once for every test method to setup clean data.
@@ -70,6 +82,14 @@ class TagListViewTest(TestCase):
 
 
 class StatusListViewTest(TestCase):
+    def setUp(self):
+        # Run once for every test method to setup clean data.
+        test_user1 = User.objects.create_user(
+            username="test1", password="12test12", email="test@example.com"
+        )
+        test_user1.save()
+        self.client.login(username="test1", password="12test12")
+
     @classmethod
     def setUpTestData(cls):
         # Run once for every test method to setup clean data.
@@ -143,6 +163,7 @@ class MyTasksListViewTest(TestCase):
 
     def test_only_my_tasks_in_list(self):
         # test that three tasks were created
+        self.client.login(username="test1", password="12test12")
         f = TaskFilter(queryset=Task.objects.all())
         resp_all = self.client.get(reverse("tasks:tasks_list_url"))
         self.assertEqual(resp_all.status_code, 200)
